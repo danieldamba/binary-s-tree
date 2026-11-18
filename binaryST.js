@@ -50,17 +50,22 @@ class Tree {
   }
 
   insert(val, root = this.root) {
-    if (val === root.data) return;
     if (root === null) {
-      root = new Node1(val);
-      return;
+      return new Node1(val);
     }
 
+    if (val === root.data) return root;
+
     if (val > root.data) {
-      this.insert(val, root.right);
+      root.right = this.insert(val, root.right);
     } else {
-      this.insert(val, root.left);
+      root.left = this.insert(val, root.left);
     }
+
+    if (root === this.root) {
+      this.root = root;
+    }
+    return root;
   }
 
   deleteItem(val, root = this.root) {
